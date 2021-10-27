@@ -68,9 +68,9 @@ function sides(){
     }      
     // Entrada en los bordes en el eje y
     if (ySerpiente >= HEIGHT_CANVAS){
-        ySerpiente = 0;
+        ySerpiente = gap;
     }
-    else if(ySerpiente < 0){
+    else if(ySerpiente < gap){
         ySerpiente = HEIGHT_CANVAS;
     }
 }
