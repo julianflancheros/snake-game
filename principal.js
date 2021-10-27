@@ -4,13 +4,13 @@ const HEIGHT_CANVAS = 500;
 
 // variables de la serpiente
 let gap = 25;
-let snake;
-let xSerpiente = gap*3;
-let ySerpiente = gap*2;
+let xSerpiente = WITDH_CANVAS/2;
+let ySerpiente = HEIGHT_CANVAS/2;
 let dir ={
     x: 0,
     y: 0
 }
+let velocidad = 0.1;
 
  // Funcion para dibujar el tamaño del canvas
 function setup() {
@@ -31,18 +31,22 @@ function foodLocation() {
 function draw() {
     background(170, 204, 102);
     
-    // noFill();
-    // noStroke();
-    // for (let i = 0; i < height; i += gap) {
-    //     for (let j = 0; j < width; j += gap) {
-    //         rect(j, i, gap, gap);
-    //     }
-    // }
+    noFill();
+    noStroke();
+    for (let i = 0; i < height; i += gap) {
+        for (let j = 0; j < width; j += gap) {
+            rect(j, i, gap, gap);
+        }
+    }
     drawSnake();
     line(0, 20, width, 20);
+    noFill();
+    strokeWeight(4);
+    stroke(43, 51, 25);
+    rect(0, gap, width, height-gap);
     // noStroke();
     rect(food.x, food.y, gap, gap);
-    if (food.x == xSerpiente || food.y == ySerpiente){
+    if (food.x == xSerpiente && food.y == ySerpiente){
         foodLocation();
     }
 }
@@ -53,7 +57,8 @@ function update(){
 }
 
 function drawSnake(){
-    rect(xSerpiente,ySerpiente, gap, gap);
+    fill("white");
+    rect(xSerpiente, ySerpiente, gap, gap);
     update();
     sides();
 }
@@ -80,27 +85,27 @@ function keyPressed() {
         ySerpiente -=gap;
         dir ={
             x:0,
-            y:-1,
+            y:-gap,
         }
     }
     else if (keyCode == DOWN_ARROW){
         ySerpiente +=gap;
         dir ={
             x:0,
-            y:1,
+            y:gap,
         }
     }
     else if (keyCode == LEFT_ARROW){
         xSerpiente -=gap;
         dir ={
-            x:-1,
+            x:-gap,
             y:0,
         }
     }
     else if (keyCode == RIGHT_ARROW){
         xSerpiente +=gap;
         dir ={
-            x:1,
+            x:gap,
             y:0,
         }
     }
