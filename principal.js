@@ -10,7 +10,7 @@ let dir ={
     x: 0,
     y: 0
 }
-let eat = new Audio('./sounds/eat.mp3');
+let eat = new Audio('./assets/sounds/eat.mp3');
 
  // Funcion para dibujar el tamaño del canvas
 function setup() {
