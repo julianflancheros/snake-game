@@ -1,13 +1,12 @@
 // constantes de escenario del juego 
-const COLUMNS = 60;
-const ROWS = 30;
-const SIDE = 20;
-const WITDH_CANVAS = COLUMNS * SIDE;
-const HEIGHT_CANVAS = ROWS * SIDE;
+const WITDH_CANVAS = 750;
+const HEIGHT_CANVAS = 500;
 
 // variables de la serpiente
-xSerpiente = SIDE;
-ySerpiente = SIDE;
+let gap = 25;
+let snake;
+let xSerpiente = gap*3;
+let ySerpiente = gap*2;
 let dir ={
     x: 0,
     y: 0
@@ -16,12 +15,36 @@ let dir ={
  // Funcion para dibujar el tamaño del canvas
 function setup() {
     createCanvas(WITDH_CANVAS, HEIGHT_CANVAS)
+    textSize(15);
+    textStyle(BOLD);
+    foodLocation();
 }
+
+function foodLocation() {
+  let x = floor(random(25, width) / gap) * gap;
+  let y = floor(random(25, height) / gap) * gap;
+  food = createVector(x, y);
+}
+
 
 // Ciclo que se repite 
 function draw() {
     background(170, 204, 102);
+    
+    // noFill();
+    // noStroke();
+    // for (let i = 0; i < height; i += gap) {
+    //     for (let j = 0; j < width; j += gap) {
+    //         rect(j, i, gap, gap);
+    //     }
+    // }
     drawSnake();
+    line(0, 20, width, 20);
+    // noStroke();
+    rect(food.x, food.y, gap, gap);
+    if (food.x == xSerpiente || food.y == ySerpiente){
+        foodLocation();
+    }
 }
 
 function update(){  
@@ -29,9 +52,8 @@ function update(){
     ySerpiente += dir.y;
 }
 
-
 function drawSnake(){
-    rect(xSerpiente,ySerpiente,SIDE, SIDE);
+    rect(xSerpiente,ySerpiente, gap, gap);
     update();
     sides();
 }
@@ -55,28 +77,28 @@ function sides(){
 
 function keyPressed() {
     if (keyCode == UP_ARROW){
-        ySerpiente -=10;
+        ySerpiente -=gap;
         dir ={
             x:0,
             y:-1,
         }
     }
     else if (keyCode == DOWN_ARROW){
-        ySerpiente +=10;
+        ySerpiente +=gap;
         dir ={
             x:0,
             y:1,
         }
     }
     else if (keyCode == LEFT_ARROW){
-        xSerpiente -=10;
+        xSerpiente -=gap;
         dir ={
             x:-1,
             y:0,
         }
     }
     else if (keyCode == RIGHT_ARROW){
-        xSerpiente +=10;
+        xSerpiente +=gap;
         dir ={
             x:1,
             y:0,
