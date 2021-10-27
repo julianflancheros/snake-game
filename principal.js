@@ -10,7 +10,7 @@ let dir ={
     x: 0,
     y: 0
 }
-let velocidad = 0.1;
+let eat = new Audio('./sounds/eat.mp3');
 
  // Funcion para dibujar el tamaño del canvas
 function setup() {
@@ -18,6 +18,7 @@ function setup() {
     textSize(15);
     textStyle(BOLD);
     foodLocation();
+    frameRate(15);
 }
 
 function foodLocation() {
@@ -48,6 +49,7 @@ function draw() {
     rect(food.x, food.y, gap, gap);
     if (food.x == xSerpiente && food.y == ySerpiente){
         foodLocation();
+        eat.play();
     }
 }
 
