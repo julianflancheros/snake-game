@@ -11,6 +11,7 @@ let dir ={
     x: 0,
     y: 0
 }
+let score = 0;
 let eat = new Audio('./assets/sounds/eat.mp3');
 let game_over = new Audio('./assets/sounds/game_over.mp3');
 
@@ -38,14 +39,27 @@ function draw() {
     drawSnake();
     line(0, 20, width, 20);
     noFill();
-    strokeWeight(4);
+    // strokeWeight(4);
     stroke(43, 51, 25);
     rect(0, gap, width, height-gap);
     // noStroke();
-    rect(food.x, food.y, gap, gap);
     if (food.x == xSerpiente && food.y == ySerpiente){
         eat.play();
         food.eat();
+        score += 7;
+    }
+    food.show();
+
+    // show score points in the display
+    fill(43, 51, 25);
+    if (int(score)<10){
+        text("000" + int(score), 5, 15);
+    }
+    else if (int(score)>10 && int(score)<1000){
+        text("00" + int(score),  5, 15);
+    }
+    else{
+        text(int(score),  5, 15);
     }
 }
 
