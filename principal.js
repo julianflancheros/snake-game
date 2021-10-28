@@ -11,6 +11,7 @@ let dir ={
     y: 0
 }
 let eat = new Audio('./assets/sounds/eat.mp3');
+let game_over = new Audio('./assets/sounds/game_over.mp3');
 
  // Funcion para dibujar el tamaño del canvas
 function setup() {
