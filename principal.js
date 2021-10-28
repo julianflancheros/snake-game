@@ -3,6 +3,7 @@ const WITDH_CANVAS = 750;
 const HEIGHT_CANVAS = 500;
 
 // variables de la serpiente
+let food
 let gap = 25;
 let xSerpiente = WITDH_CANVAS/2;
 let ySerpiente = HEIGHT_CANVAS/2;
@@ -18,14 +19,8 @@ function setup() {
     createCanvas(WITDH_CANVAS, HEIGHT_CANVAS)
     textSize(15);
     textStyle(BOLD);
-    foodLocation();
+    food = new Food();
     frameRate(15);
-}
-
-function foodLocation() {
-  let x = floor(random(25, width) / gap) * gap;
-  let y = floor(random(25, height) / gap) * gap;
-  food = createVector(x, y);
 }
 
 
@@ -49,8 +44,8 @@ function draw() {
     // noStroke();
     rect(food.x, food.y, gap, gap);
     if (food.x == xSerpiente && food.y == ySerpiente){
-        foodLocation();
         eat.play();
+        food.eat();
     }
 }
 
