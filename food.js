@@ -1,15 +1,15 @@
-class Food{
+class Food {
     // Creation the constructor class food
-    constructor(){
-        this.x = floor(random(25, width) / gap) * gap;
-        this.y = floor(random(25, height) / gap) * gap;
+    constructor() {
+        this.x = floor(random(50, width) / gap) * gap;
+        this.y = floor(random(50, height) / gap) * gap;
     }
 
     // Creation method eat
     eat() {
         // put random coordinate points then multiply by unit size of grid
-        this.x = floor(random(25, width) / gap) * gap;
-        this.y = floor(random(25, height) / gap) * gap;
+        this.x = floor(random(50, width) / gap) * gap;
+        this.y = floor(random(50, height) / gap) * gap;
         if (this.x == xSerpiente || this.y == ySerpiente) {
             this.eat();
         }

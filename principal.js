@@ -14,20 +14,36 @@ let dir ={
 let score = 0;
 let eat = new Audio('./assets/sounds/eat.mp3');
 let game_over = new Audio('./assets/sounds/game_over.mp3');
+let img;
 
+function preload() {
+    img = loadImage('./assets/images/intro.png');
+}
+
+var tiempoEspera = 150000; 
+let fullLoad = true;
  // Funcion para dibujar el tamaño del canvas
 function setup() {
     createCanvas(WITDH_CANVAS, HEIGHT_CANVAS)
-    textSize(15);
+    textSize(25);
     textStyle(BOLD);
     food = new Food();
-    frameRate(15);
+    frameRate(10);
 }
 
 
 // Ciclo que se repite 
 function draw() {
-    background(170, 204, 102);
+    background('#9ac102');
+    if (fullLoad){
+        image(img, 0, 0, width, height);
+        for (let i=0; i<tiempoEspera;i++){
+            if (i == tiempoEspera-1){
+                fullLoad = false;
+                console.log('Llege al fin')
+            }
+        }
+    }
     
     noFill();
     noStroke();
@@ -37,11 +53,11 @@ function draw() {
         }
     }
     drawSnake();
-    line(0, 20, width, 20);
+    line(0, 40, width, 40);
     noFill();
     // strokeWeight(4);
     stroke(43, 51, 25);
-    rect(0, gap, width, height-gap);
+    rect(0, 2*gap, width, height-gap);
     // noStroke();
     if (food.x == xSerpiente && food.y == ySerpiente){
         eat.play();
@@ -53,14 +69,16 @@ function draw() {
     // show score points in the display
     fill(43, 51, 25);
     if (int(score)<10){
-        text("000" + int(score), 5, 15);
+        text("000" + int(score), 5, gap);
     }
     else if (int(score)>10 && int(score)<1000){
-        text("00" + int(score),  5, 15);
+        text("00" + int(score),  5, gap);
     }
     else{
-        text(int(score),  5, 15);
+        text(int(score),  5, gap);
     }
+
+    
 }
 
 function update(){  
@@ -85,9 +103,9 @@ function sides(){
     }      
     // Entrada en los bordes en el eje y
     if (ySerpiente >= HEIGHT_CANVAS){
-        ySerpiente = gap;
+        ySerpiente = 50;
     }
-    else if(ySerpiente < gap){
+    else if(ySerpiente < 50){
         ySerpiente = HEIGHT_CANVAS;
     }
 }
