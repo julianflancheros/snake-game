@@ -22,12 +22,12 @@ let fullLoad = true;
  // Funcion para dibujar el tamaño del canvas
 function setup() {
     createCanvas(WITDH_CANVAS, HEIGHT_CANVAS)
-    textSize(25);
-    textStyle(BOLD);
     food = new Food();
     snake = new Snake();
+    textSize(25);
+    textStyle(BOLD);
     frameRate(10);
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 2; i++) {
         snake.tails.push(new Tail(snake.x, snake.y + (gap * i)));
     }
 }
@@ -56,10 +56,6 @@ function draw() {
         }
     }
 
-    strokeWeight(2);
-    stroke(43, 51, 25);
-    line(0, 40, width, 40);
-    rect(0, 2*gap, width, height-gap);
     // function to add elemets in the tail of snake
     for (let i = snake.tails.length - 1; i >= 0; i--) {
         if (i == 0) {
@@ -75,6 +71,8 @@ function draw() {
     preLoc.x = snake.x;
     preLoc.y = snake.y;
     snake.move();
+    snake.sides();
+
     if (snake.collision(food)){
         eat.play();
         food.eat();
@@ -86,11 +84,10 @@ function draw() {
         game_over.play();
         snake.restart();
         food.eat();
+        score = 0;
     }
 
     food.show();
-    snake.show();
-    snake.sides();
 
     // show score points in the display
     fill(43, 51, 25);
@@ -104,6 +101,11 @@ function draw() {
         text(int(score),  5, gap);
     }
 
+    snake.show();
+    noFill();
+    strokeWeight(4);
+    stroke(43, 51, 25);
+    rect(0, 2*gap, width, height-gap);
 }
 
 function keyPressed() {
