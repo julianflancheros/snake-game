@@ -4,6 +4,7 @@ class Snake {
         this.x = floor(width / (2 * gap)) * gap;
         this.y = floor(height / (2 * gap)) * gap;
         this.dir = "up";
+        this.tails = [];
     }
 
     move() {
@@ -38,7 +39,6 @@ class Snake {
         // Entrada en los bordes en el eje y
         if (this.y >= height){
             this.y = gap*2;
-            console.log(gap*2)
         }
         else if(this.y < gap*2){
             this.y = 500;
