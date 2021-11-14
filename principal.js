@@ -2,13 +2,13 @@
 const WITDH_CANVAS = 750;
 const HEIGHT_CANVAS = 500;
 
+
 // variables de la serpiente
 let food;
 let gap = 25;
-// let xSerpiente = WITDH_CANVAS/2;
-// let ySerpiente = HEIGHT_CANVAS/2;
-
 let score = 0;
+let snake;
+let preLoc = {};
 let eat = new Audio('./assets/sounds/eat.mp3');
 let game_over = new Audio('./assets/sounds/game_over.mp3');
 let img;
@@ -27,6 +27,9 @@ function setup() {
     food = new Food();
     snake = new Snake();
     frameRate(10);
+    for (let i = 0; i < 5; i++) {
+        snake.tails.push(new Tail(snake.x, snake.y + (gap * i)));
+    }
 }
 
 
@@ -42,7 +45,9 @@ function draw() {
             }
         }
     }
-    
+
+    line(0, 40, width, 40);
+    //Grid, only for reference, not required for game to work. Comment noStroke(); to display
     noFill();
     noStroke();
     for (let i = 0; i < height; i += gap) {
@@ -50,22 +55,36 @@ function draw() {
             rect(j, i, gap, gap);
         }
     }
-    noFill();
-    // strokeWeight(4);
+
+    strokeWeight(2);
     stroke(43, 51, 25);
     line(0, 40, width, 40);
     rect(0, 2*gap, width, height-gap);
-    // noStroke();
+    // function to add elemets in the tail of snake
+    for (let i = snake.tails.length - 1; i >= 0; i--) {
+        if (i == 0) {
+            snake.tails[i].x = snake.x;
+            snake.tails[i].y = snake.y;
+        } else {
+            snake.tails[i].x = snake.tails[i - 1].x;
+            snake.tails[i].y = snake.tails[i - 1].y;
+        }
+        snake.tails[i].show();
+    }
+
+    preLoc.x = snake.x;
+    preLoc.y = snake.y;
+    snake.move();
     if (snake.collision(food)){
         eat.play();
         food.eat();
         score += 7;
+        snake.tails.push(new Tail(preLoc.x, preLoc.y));
     }
 
     food.show();
     snake.show();
-    snake.move();
-    sides();
+    snake.sides();
 
     // show score points in the display
     fill(43, 51, 25);
@@ -79,23 +98,6 @@ function draw() {
         text(int(score),  5, gap);
     }
 
-}
-
-function sides(){
-    // Entrada en los bordes en el eje x
-    if (snake.x >= WITDH_CANVAS){
-        snake.x = 0;
-    }
-    else if(snake.x < 0){
-        snake.x = WITDH_CANVAS;
-    }      
-    // Entrada en los bordes en el eje y
-    if (snake.y >= HEIGHT_CANVAS){
-        snake.y = 50;
-    }
-    else if(snake.y < 50){
-        snake.y = HEIGHT_CANVAS;
-    }
 }
 
 function keyPressed() {
