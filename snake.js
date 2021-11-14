@@ -3,7 +3,7 @@ class Snake {
     constructor() {
         this.x = floor(width / (2 * gap)) * gap;
         this.y = floor(height / (2 * gap)) * gap;
-        this.dir = "up"
+        this.dir = "up";
     }
 
     move() {
@@ -27,6 +27,23 @@ class Snake {
         }
     }
 
+    sides(){
+        // Entrada en los bordes en el eje x
+        if (this.x >= width){
+            this.x = 0;
+        }
+        else if(this.x < 0){
+            this.x = 750;
+        }      
+        // Entrada en los bordes en el eje y
+        if (this.y >= height){
+            this.y = gap*2;
+            console.log(gap*2)
+        }
+        else if(this.y < gap*2){
+            this.y = 500;
+        }
+    }
 
     show() {
         fill(23, 31, 10);
