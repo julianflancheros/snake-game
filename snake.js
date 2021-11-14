@@ -28,6 +28,27 @@ class Snake {
         }
     }
 
+    restart() {
+        this.x = floor(width / (2 * gap)) * gap;
+        this.y = floor(height / (2 * gap)) * gap;
+        this.dir = 'up';
+        this.score = 0;
+        this.tails = [];
+
+        for (let i = 0; i < 2; i++) {
+            snake.tails.push(new Tail(snake.x, snake.y + (15 * i)));
+        }
+
+    }
+
+    tail_collide() {
+        for (let i = 0; i < this.tails.length; i++) {
+            if (this.x == this.tails[i].x && this.y == this.tails[i].y) {
+                return true;
+            }
+        }
+    }
+
     sides(){
         // Entrada en los bordes en el eje x
         if (this.x >= width){

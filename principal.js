@@ -82,6 +82,12 @@ function draw() {
         snake.tails.push(new Tail(preLoc.x, preLoc.y));
     }
 
+    if (snake.tail_collide() == true) {
+        game_over.play();
+        snake.restart();
+        food.eat();
+    }
+
     food.show();
     snake.show();
     snake.sides();
