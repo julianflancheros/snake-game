@@ -10,7 +10,7 @@ class Food {
         // put random coordinate points then multiply by unit size of grid
         this.x = floor(random(50, width) / gap) * gap;
         this.y = floor(random(50, height) / gap) * gap;
-        if (this.x == xSerpiente || this.y == ySerpiente) {
+        if (this.x == snake.x || this.y == snake.y) {
             this.eat();
         }
     }
